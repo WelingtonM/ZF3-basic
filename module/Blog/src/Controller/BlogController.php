@@ -22,9 +22,9 @@ class BlogController extends AbstractActionController
 
     public function indexAction()
     {
-        $postTables = $this->table->fetchAll();
+        $posts = $this->table->fetchAll();
 
-        return new ViewModel(compact('postTables'));
+        return new ViewModel(compact('posts'));
     }
 }
 
