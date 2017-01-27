@@ -5,6 +5,7 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Blog\Controller\BlogController;
 
 class Module implements ConfigProviderInterface
 {
@@ -29,6 +30,19 @@ class Module implements ConfigProviderInterface
                 }
             ]
         ];
+    }
+
+    public function getControllerConfig()
+    {
+       return [
+           'factories' => [
+               BlogController::class => function($container){
+                   return new BlogController(
+                       $container->get(Models\PostTable::class)
+                   );
+               }
+           ]
+       ];
     }
 }
 
