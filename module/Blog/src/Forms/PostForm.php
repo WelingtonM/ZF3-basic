@@ -1,8 +1,6 @@
 <?php
 namespace Blog\Forms;
 
-
-
 use Zend\Form\Form;
 
 class PostForm extends Form
@@ -33,7 +31,7 @@ class PostForm extends Form
             'name'=>'submit',
             'type'=>'submit',
             'attributes' => [
-                'value' => 'Salve',
+                'value' => 'Add Post',
                 'id'=>'submitbutton'
             ]
         ]);

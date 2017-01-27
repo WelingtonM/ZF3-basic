@@ -4,6 +4,7 @@ namespace Blog\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Blog\Models\PostTable;
+use Blog\Forms\PostForm;
 
 class BlogController extends AbstractActionController
 {
@@ -23,13 +24,13 @@ class BlogController extends AbstractActionController
     public function indexAction()
     {
         $posts = $this->table->fetchAll();
-
         return new ViewModel(compact('posts'));
     }
 
     public function addAction()
     {
-        return new ViewModel();
+        $forms = new PostForm();
+        return new ViewModel(compact('forms'));
     }
 }
 
