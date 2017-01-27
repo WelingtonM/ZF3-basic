@@ -26,5 +26,10 @@ class BlogController extends AbstractActionController
 
         return new ViewModel(compact('posts'));
     }
+
+    public function addAction()
+    {
+        return new ViewModel();
+    }
 }
 
