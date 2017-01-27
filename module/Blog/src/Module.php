@@ -9,6 +9,7 @@ use Blog\Controller\BlogController;
 
 class Module implements ConfigProviderInterface
 {
+
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';
@@ -18,31 +19,32 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Models\PostTable::class => function ($container) {
-                    $tableGateway = $container->get(Models\PostTableGateway::class);
-                    return new Models\PostTable($tableGateway);
+                Model\PostTable::class => function ($container) {
+                    $tableGateway = $container->get(Model\PostTableGateway::class);
+                    return new Model\PostTable($tableGateway);
                 },
-                Models\PostTableGateway::class => function($container){
-                    $dbAdapater = $container->get(AdapterInterface::class);
+                Model\PostTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Models\Post());
-                    return new TableGateway('posts', $dbAdapater, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Post());
+                    
+                    return new TableGateway('post', $dbAdapter, null, $resultSetPrototype);
                 }
             ]
         ];
     }
-
-    public function getControllerConfig()
+    
+    public function getControllerConfig() 
     {
-       return [
-           'factories' => [
-               BlogController::class => function($container){
-                   return new BlogController(
-                       $container->get(Models\PostTable::class)
-                   );
-               }
-           ]
-       ];
+        return [
+            'factories'=>[
+                BlogController::class => function($container) {
+                    return new BlogController(
+                            $container->get(Model\PostTable::class)
+                    );
+                }
+            ]
+        ];
     }
 }
 
